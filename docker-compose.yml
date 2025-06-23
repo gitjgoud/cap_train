@@ -1,9 +1,11 @@
 version: '3'
 services:
   web:
+    image: flask_api_test
     build: .
     ports:
       - "5000:5000"
     volumes:
       - .:/app
+
       
