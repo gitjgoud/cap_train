@@ -3,3 +3,5 @@ flask-smorest==0.42.0
 python-dotenv
 SQLAlchemy
 flask-sqlalchemy
+flask-jwt-extended
+passlib
