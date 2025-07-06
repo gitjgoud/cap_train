@@ -4,8 +4,23 @@ services:
     image: flask_api_test
     build: .
     ports:
-      - "5000:5000"
+      - "5000:80"
     volumes:
       - .:/app
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_DB=myapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/postgres_data 
+    ports:
+      - "5432:5432"
+volumes:
+  postgres_data:
 
       
