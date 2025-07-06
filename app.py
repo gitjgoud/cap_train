@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 
 from db import db
 from blocklist import BLOCKLIST
-# import models
+import models
 
 from resources.item import blp as ItemBlueprint
 from resources.store import blp as StoreBlueprint
@@ -26,12 +26,9 @@ def create_app(db_url = None):
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/docs"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv("DATABASE_URL", "sqlite:///data.db")
-    db_path = os.path.join(app.instance_path, "data.db")
-    app.config["SQLALCHEMY_DATABASE_URI"] = db_url or f"sqlite:///{db_path}"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv("DATABASE_URL", "sqlite:///data.db")
     db.init_app(app)
-    import models
+    # import models
     print("DEBUG - db id:", id(db))
     print("DEBUG - models.StoreModel base:", models.StoreModel.__bases__)
     print("DEBUG - metadata tables:", db.metadata.tables)
@@ -93,9 +90,6 @@ def create_app(db_url = None):
     # def create_tables():
     #     db.create_all()
 
-    with app.app_context():
-        import models 
-        db.create_all()
 
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
