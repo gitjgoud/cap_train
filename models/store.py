@@ -9,3 +9,5 @@ class StoreModel(db.Model):
 
     tags = db.relationship("TagModel", back_populates="store", lazy="dynamic")
     
+print("StoreModel loaded")
+print("DEBUG (store.py) - db id:", id(db))
